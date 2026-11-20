@@ -1,0 +1,64 @@
+:root {
+  --navy: #e9edf6;
+  --blue: #dfc58f;
+  --gold: #d7b777;
+  --ink: #edf1f7;
+  --muted: #b6c1d0;
+  --paper: #101c2e;
+  --soft: #182a40;
+  --rule: #3b4d63;
+  --dark-rule: #536b85;
+  --on-dark: #101c2e;
+  --on-dark-muted: #bcc7d6;
+  --hover: #22374e;
+  --disabled-ink: #a5b4c7;
+  --disabled-fill: #25384f;
+  --overlay: #030a16bd;
+}
+html { color-scheme: dark; }
+::selection { background: var(--gold); color: var(--paper); }
+.site-navigation-shell { background: var(--paper); }
+.masthead-inner img { filter: brightness(0) invert(1); }
+.quick-navigation { border-bottom-color: var(--gold); }
+.quick-navigation a[aria-current] { color: var(--gold); }
+.conference-hero { background: var(--paper); border-bottom: 1px solid var(--rule); padding-block: 48px 36px; }
+.conference-hero h1 { color: var(--gold); font-weight: 500; }
+.hero-facts { padding-block: 24px; margin-top: 24px; border-top: 1px solid var(--rule); }
+.hero-countdown { margin-top: 0; }
+.countdown b { color: var(--gold); }
+.quote-section { background: var(--soft); border-bottom: 0; }
+.quote-section figure { padding-left: 24px; border-left: 1px solid var(--gold); }
+.quote-section figcaption { color: var(--gold); }
+.topics-section { padding-block: 40px; }
+.topics-grid { gap: 0 40px; }
+.topic { border-color: var(--rule); }
+.agenda-section { background: var(--paper); border-top: 1px solid var(--rule); }
+.agenda-group-title { border-bottom-color: var(--gold); color: var(--gold); }
+.view-switch button { background: var(--soft); color: var(--ink); }
+.view-switch button[aria-pressed=true] { background: var(--gold); color: var(--paper); }
+.session-time b { color: var(--gold); }
+.session-break, .session-networking { background: var(--soft); }
+.session-title { color: var(--ink); }
+.speaker-name { color: var(--muted); }
+.speaker-name:hover { color: var(--gold); }
+.questions-section { background: var(--soft); color: var(--ink); border-block: 1px solid var(--gold); }
+.questions-section p { color: var(--muted); }
+.questions-section :focus-visible { outline-color: var(--blue); }
+.primary-link { background: var(--gold); color: var(--paper); }
+.primary-link:hover { background: var(--blue); }
+.vernissage-section { background: var(--paper); }
+.information-section { background: var(--soft); }
+.information-grid article { border-color: var(--dark-rule); }
+.venue-section { background: var(--paper); border-top: 1px solid var(--rule); }
+.conference-footer { background: var(--soft); }
+.dialog-toolbar { border-bottom-color: var(--gold); }
+.speaker-portrait { background: var(--soft); }
+.dialog-close { color: var(--ink); }
+.navigation-group h2, .navigation-group-toggle { color: var(--gold); }
+.mobile-view-select select { background: var(--soft); color: var(--ink); }
+@media (max-width: 599px) {
+  .conference-hero { padding-block: 28px; }
+  .hero-facts { padding-block: 20px; }
+  .quote-section figure { padding-left: 16px; }
+  .topics-section { padding-block: 32px; }
+}

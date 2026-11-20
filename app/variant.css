@@ -20,7 +20,7 @@ html { color-scheme: dark; }
 .site-navigation-shell { background: var(--paper); }
 .masthead-inner img { filter: brightness(0) invert(1); }
 .quick-navigation { border-bottom-color: var(--gold); }
-.quick-navigation a[aria-current] { color: var(--gold); }
+.quick-navigation a[aria-current], .quick-navigation button[aria-current] { color: var(--gold); }
 .conference-hero { background: var(--paper); border-bottom: 1px solid var(--rule); padding-block: 48px 36px; }
 .conference-hero h1 { color: var(--gold); font-weight: 500; }
 .hero-facts { padding-block: 24px; margin-top: 24px; border-top: 1px solid var(--rule); }

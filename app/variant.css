@@ -88,7 +88,8 @@ h2 { color: #fff; font-weight: 700; }
 .agenda-row.is-current { background: #243b55; box-shadow: inset 3px 0 var(--gold); }
 .agenda-row.is-current::before { background: var(--gold); }
 .agenda-row.session-qa.is-current { background: #edf4ff; }
-.session-live-label { grid-column: 1 / -1; justify-self: start; margin: 0 0 6px; padding: 2px 8px; background: var(--gold); color: var(--paper); font-size: 13px; font-weight: 700; }
+.session-time { position: relative; }
+.session-time .session-live-label { position: absolute; top: 7px; left: 60px; margin: 0; padding: 2px 4px; background: var(--gold); color: var(--paper); font-size: 12px; line-height: 1.4; font-weight: 700; white-space: nowrap; }
 .kc-instructions { margin-top: 16px; border: 1px solid var(--rule); }
 .kc-instructions summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; min-height: 48px; color: var(--navy); font-size: 16px; cursor: pointer; list-style: none; }
 .kc-instructions summary::-webkit-details-marker { display: none; }
@@ -105,7 +106,7 @@ h2 { color: #fff; font-weight: 700; }
   .agenda-timeline .session-main { display: block; }
   .agenda-timeline .session-title { font-size: 18px; }
   .agenda-timeline .session-time b { font-size: 19px; }
-  .session-live-label { display: inline-block; }
+  .session-time .session-live-label { top: auto; left: 0; bottom: -14px; }
 }
 @media (max-width: 599px) {
   .conference-hero { padding-block: 28px; }

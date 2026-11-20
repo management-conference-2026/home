@@ -77,6 +77,7 @@ h2 { color: #fff; font-weight: 700; }
 .information-grid h3 { color: var(--navy); font-weight: 700; }
 .priorities-heading { display: flex; align-items: center; gap: 18px; max-width: 640px; font-size: 28px; line-height: 1.12; letter-spacing: -.02em; }
 .priorities-number { font-size: 112px; line-height: .85; font-weight: 500; flex-shrink: 0; }
+.agenda-heading { margin-bottom: 12px; }
 .agenda-timeline .agenda-row { padding-block: 4px; padding-right: 16px; grid-template-columns: 100px minmax(0, 1fr); }
 .agenda-timeline .session-main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 28px; }
 .agenda-timeline .session-speakers { margin-top: 0; align-content: start; }

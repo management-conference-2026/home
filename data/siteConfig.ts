@@ -2,5 +2,6 @@
 export const siteConfig = {
   brand: 'Air Astana Group', locale: 'Asia/Almaty', draft: true, subtitle: '',
   questionsUrl: '', kcAppUrl: 'https://kcapp.airastana.com/', onlineUrl: '',
+  kcAppVideoUrl: '',
   aiVernissageDescription: '', lunchDescription: '',
 };

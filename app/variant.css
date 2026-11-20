@@ -22,7 +22,7 @@ html { color-scheme: dark; }
 .quick-navigation { border-bottom-color: var(--gold); }
 .quick-navigation a[aria-current], .quick-navigation button[aria-current] { color: var(--gold); }
 .conference-hero { background: var(--paper); border-bottom: 1px solid var(--rule); padding-block: 48px 36px; }
-.conference-hero h1 { color: var(--gold); font-weight: 500; }
+.conference-hero h1 { color: #fff; font-weight: 500; }
 .hero-facts { padding-block: 24px; margin-top: 24px; border-top: 1px solid var(--rule); }
 .hero-countdown { margin-top: 0; }
 .countdown b { color: var(--gold); }
@@ -56,9 +56,63 @@ html { color-scheme: dark; }
 .dialog-close { color: var(--ink); }
 .navigation-group h2, .navigation-group-toggle { color: var(--gold); }
 .mobile-view-select select { background: var(--soft); color: var(--ink); }
+h2 { color: #fff; font-weight: 700; }
+.topic h3 { color: #fff; }
+.quote-section, .questions-section, .information-section, .session-qa {
+  --navy: #07376e;
+  --ink: #143b66;
+  --muted: #3e5876;
+  --blue: #07539b;
+  --gold: #07376e;
+  --paper: #fff;
+  --soft: #eef3f8;
+  --hover: #e3ebf4;
+  --rule: #cbd7e4;
+  --dark-rule: #b5c6d8;
+  background: var(--paper);
+  color: var(--ink);
+}
+.quote-section h2, .questions-section h2, .information-section h2 { color: var(--navy); }
+.quote-section figcaption { color: var(--navy); }
+.information-grid h3 { color: var(--navy); font-weight: 700; }
+.priorities-heading { display: flex; align-items: center; gap: 18px; max-width: 640px; font-size: 28px; line-height: 1.12; letter-spacing: -.02em; }
+.priorities-number { font-size: 112px; line-height: .85; font-weight: 500; flex-shrink: 0; }
+.agenda-timeline .agenda-row { padding-block: 4px; padding-right: 16px; grid-template-columns: 100px minmax(0, 1fr); }
+.agenda-timeline .session-main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 28px; }
+.agenda-timeline .session-speakers { margin-top: 0; align-content: start; }
+.agenda-timeline .session-title { font-size: 19px; }
+.agenda-timeline .speaker-name { min-height: 36px; font-size: 16px; }
+.agenda-timeline .session-time b { font-size: 21px; }
+.agenda-timeline .session-qa .session-title { color: var(--navy); }
+.agenda-row.is-current { background: #243b55; box-shadow: inset 3px 0 var(--gold); }
+.agenda-row.is-current::before { background: var(--gold); }
+.agenda-row.session-qa.is-current { background: #edf4ff; }
+.session-live-label { grid-column: 1 / -1; justify-self: start; margin: 0 0 6px; padding: 2px 8px; background: var(--gold); color: var(--paper); font-size: 13px; font-weight: 700; }
+.kc-instructions { margin-top: 16px; border: 1px solid var(--rule); }
+.kc-instructions summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; min-height: 48px; color: var(--navy); font-size: 16px; cursor: pointer; list-style: none; }
+.kc-instructions summary::-webkit-details-marker { display: none; }
+.kc-instructions summary:hover { background: var(--soft); }
+.kc-instructions[open] summary svg { transform: rotate(180deg); }
+.instruction-content { padding: 16px; border-top: 1px solid var(--rule); background: var(--soft); }
+.instruction-content h4 { margin: 0 0 8px; color: var(--navy); font: 700 17px/1.4 var(--font-body); }
+.instruction-content video { display: block; margin-top: 12px; width: 100%; max-height: 420px; background: #101c2e; }
+@media (min-width: 900px) {
+  .masthead-inner > .menu-toggle { display: none; }
+}
+@media (max-width: 899px) {
+  .agenda-timeline .agenda-row { grid-template-columns: 72px minmax(0, 1fr); padding-block: 14px; padding-right: 8px; }
+  .agenda-timeline .session-main { display: block; }
+  .agenda-timeline .session-title { font-size: 18px; }
+  .agenda-timeline .session-time b { font-size: 19px; }
+  .session-live-label { display: inline-block; }
+}
 @media (max-width: 599px) {
   .conference-hero { padding-block: 28px; }
   .hero-facts { padding-block: 20px; }
   .quote-section figure { padding-left: 16px; }
   .topics-section { padding-block: 32px; }
+  .priorities-heading { gap: 12px; font-size: 22px; }
+  .priorities-number { font-size: 84px; }
+  .agenda-timeline .agenda-row { grid-template-columns: 54px minmax(0, 1fr); gap: 10px; padding-block: 16px; }
+  .agenda-timeline .speaker-name { font-size: 15px; min-height: 36px; }
 }

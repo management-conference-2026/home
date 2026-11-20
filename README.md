@@ -1,7 +1,14 @@
 # Air Astana Group Management Conference — Midnight
 
-Style variant of the XVIII Management Conference website, 3 December 2026.
-The event content, three agenda views, navigation and speaker dialogs are shared with the main implementation.
+Selected design of the XVIII Management Conference website, 3 December 2026.
+Includes a responsive timeline, speaker dialogs with full job titles, and white information sections.
+
+The timeline highlights sessions while they are running on 3 December 2026 in Almaty (UTC+5),
+independently of the visitor's device timezone. It refreshes every second and when the tab becomes visible.
+Overlapping sessions in the supplied programme are both highlighted while they are running.
+
+Add the installation video URL to `kcAppVideoUrl` in `data/siteConfig.ts` when the file is supplied.
+Until then, the installation instructions disclosure explains that the video is forthcoming.
 
 ## Run locally
 

@@ -7,7 +7,7 @@ import { agenda, type Session } from '../data/agenda';
 import { event } from '../data/event';
 import { siteConfig } from '../data/siteConfig';
 import { speakerPhotos } from '../data/speaker-photos';
-import { getLiveSessionIds } from '../data/schedule';
+import { getConferenceStatus, getLiveSessionIds } from '../data/schedule';
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 const asset = (path: string) => `${basePath}${path}`;
@@ -25,13 +25,36 @@ function parsePerson(raw: string) {
 const allPeople = agenda.flatMap(session => (session.people ?? []).map(parsePerson));
 const title = (s: Session) => s.title.replace(/^#\d+\s*Panel discussion on\s*/i, 'Panel: ');
 
-function Countdown() {
+function useConferenceTime() {
   const [now, setNow] = useState<number | null>(null);
-  useEffect(() => { setNow(Date.now()); const timer = setInterval(() => setNow(Date.now()), 1000); return () => clearInterval(timer); }, []);
+  useEffect(() => {
+    const update = () => setNow(Date.now());
+    update();
+    const timer = window.setInterval(update, 1000);
+    document.addEventListener('visibilitychange', update);
+    return () => { window.clearInterval(timer); document.removeEventListener('visibilitychange', update); };
+  }, []);
+  return now;
+}
+
+function ConferenceStatus() {
+  const now = useConferenceTime();
+  const status = now === null ? { phase: 'upcoming' as const } : getConferenceStatus(now);
   const target = new Date(event.date).getTime();
   const diff = Math.max(0, target - (now ?? target));
   const values = [Math.floor(diff / 86400000), Math.floor(diff % 86400000 / 3600000), Math.floor(diff % 3600000 / 60000), Math.floor(diff % 60000 / 1000)];
-  return <div className="countdown" aria-label="Time until the conference">{['Days', 'Hours', 'Minutes', 'Seconds'].map((label, i) => <div key={label}><b>{now === null ? '—' : String(values[i]).padStart(2, '0')}</b><span>{label}</span></div>)}</div>;
+  return <div className="hero-countdown" data-phase={status.phase}>
+    <div className="conference-status" role="status" aria-atomic="true">
+      {status.phase === 'upcoming' ? <p className="conference-status-label">The conference starts in</p> : status.phase === 'finished' ? <div><p className="conference-status-label">Conference concluded</p><p className="conference-status-summary">Thank you for joining us.</p></div> : <>
+        <p className="conference-status-label">{status.phase === 'live' ? 'Happening now' : 'Up next'}</p>
+        <ul className="current-sessions">{(status.phase === 'live' ? status.sessions : [status.next]).map(session => <li key={session.id}>
+          <span className="current-session-time">{session.start}–{session.end}<span>Almaty time (UTC+5)</span></span>
+          <a className="current-session-link" href={`#session-${session.id}`}><span>{title(session)}</span><ArrowUpRight size={20} aria-hidden="true"/><span className="visually-hidden"> — view in agenda</span></a>
+        </li>)}</ul>
+      </>}
+    </div>
+    {status.phase === 'upcoming' && <div className="countdown" aria-label="Time until the conference">{['Days', 'Hours', 'Minutes', 'Seconds'].map((label, i) => <div key={label}><b>{now === null ? '—' : String(values[i]).padStart(2, '0')}</b><span>{label}</span></div>)}</div>}
+  </div>;
 }
 
 export default function Conference() {
@@ -127,7 +150,7 @@ export default function Conference() {
           <div><Radio size={20}/><p><span>Format</span><strong>{event.format}</strong></p></div>
           <div><MapPin size={20}/><p><span>Venue</span><strong>{event.venue}</strong><span>{event.address}</span></p></div>
         </div>
-        <div className="hero-countdown"><p>The conference starts in</p><Countdown/></div>
+        <ConferenceStatus/>
       </section>
       <section className="section quote-section" id="about"><h2>From Ambition to Execution</h2><figure><blockquote>{event.ceoQuote}</blockquote><figcaption>Ibrahim Canliel, Chief Executive Officer</figcaption></figure></section>
       <section className="section topics-section" id="topics"><div className="section-heading"><h2 className="priorities-heading"><span className="priorities-number">4</span><span>Priorities at the centre of our conference conversations</span></h2></div><div className="topics-grid">{event.topics.map((topic, i) => { const Icon = [Network, Globe2, ShoppingCart, Plane][i]; return <div className="topic" key={topic}><Icon size={28} strokeWidth={1.5} aria-hidden="true"/><h3>{topic}</h3></div>; })}</div></section>
@@ -156,18 +179,11 @@ export default function Conference() {
 }
 
 function Agenda({ open }: { open: (content: ModalContent) => void }) {
-  const [now, setNow] = useState<number | null>(null);
-  useEffect(() => {
-    const update = () => setNow(Date.now());
-    update();
-    const timer = window.setInterval(update, 1000);
-    document.addEventListener('visibilitychange', update);
-    return () => { window.clearInterval(timer); document.removeEventListener('visibilitychange', update); };
-  }, []);
+  const now = useConferenceTime();
   const live = now === null ? [] : getLiveSessionIds(now);
   return <div className="agenda-layout agenda-timeline" data-view="timeline"><div className="agenda-group"><div>{agenda.map(s => {
     const isCurrent = live.includes(s.id);
-    return <article className={`agenda-row session-${s.kind}${isCurrent ? ' is-current' : ''}`} key={s.id} data-session-id={s.id} aria-current={isCurrent ? 'time' : undefined}>
+    return <article className={`agenda-row session-${s.kind}${isCurrent ? ' is-current' : ''}`} key={s.id} id={`session-${s.id}`} tabIndex={-1} data-session-id={s.id} aria-current={isCurrent ? 'time' : undefined}>
       <button type="button" className="session-time" onClick={() => open({ type: 'session', id: s.id })} aria-label={`${s.start} to ${s.end}: ${title(s)}. Open session details${isCurrent ? '. Happening now' : ''}`}><b>{s.start}</b><span>{s.end}</span>{isCurrent && <span className="session-live-label" aria-hidden="true">Now</span>}</button>
       <div className="session-main"><button type="button" className="session-title" onClick={() => open({ type: 'session', id: s.id })}>{title(s)}<ArrowUpRight size={14} aria-hidden="true"/></button>{s.people && <div className="session-speakers">{s.people.map(raw => { const p = parsePerson(raw); return <button type="button" className="speaker-name" key={p.name} onClick={() => open({ type: 'speaker', name: p.name })} aria-label={`About ${p.name}${p.moderator ? ', moderator' : ''}`}>{p.name}{p.moderator && <span> (moderator)</span>}</button>; })}</div>}</div>
     </article>;

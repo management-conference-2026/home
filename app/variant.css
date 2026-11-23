@@ -72,7 +72,7 @@ html { color-scheme: dark; }
 .mobile-view-select select { background: var(--soft); color: var(--ink); }
 h2 { color: #fff; font-weight: 700; }
 .topic h3 { color: #fff; }
-.quote-section, .questions-section, .information-section, .session-qa {
+.quote-section, .questions-section, .information-section {
   --navy: #07376e;
   --ink: #143b66;
   --muted: #3e5876;
@@ -98,10 +98,8 @@ h2 { color: #fff; font-weight: 700; }
 .agenda-timeline .session-title { font-size: 19px; }
 .agenda-timeline .speaker-name { min-height: 36px; font-size: 16px; }
 .agenda-timeline .session-time b { font-size: 21px; }
-.agenda-timeline .session-qa .session-title { color: var(--navy); }
 .agenda-row.is-current { background: #243b55; box-shadow: inset 3px 0 var(--gold); }
 .agenda-row.is-current::before { background: var(--gold); }
-.agenda-row.session-qa.is-current { background: #edf4ff; }
 .session-time { position: relative; }
 .session-time .session-live-label { position: absolute; top: 7px; left: 60px; margin: 0; padding: 2px 4px; background: var(--gold); color: var(--paper); font-size: 12px; line-height: 1.4; font-weight: 700; white-space: nowrap; }
 .kc-instructions { margin-top: 16px; border: 1px solid var(--rule); }

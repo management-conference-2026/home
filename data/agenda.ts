@@ -1,6 +1,6 @@
 export type Session = { id: string; start: string; end: string; title: string; kind: 'keynote'|'panel'|'interactive'|'networking'|'break'|'qa'; people?: string[]; organization?: string; description?: string; tentative?: boolean };
 export const agenda: Session[] = [
- {id:'opening',start:'09:00',end:'09:30',title:'Opening speech',kind:'keynote',description:'Four strategic priorities, Ambitions, destinations',people:['Ibrahim Canliel, Chief Executive Officer']},
+ {id:'opening',start:'09:00',end:'09:30',title:'Opening speech',kind:'keynote',description:'Ambitions and Four strategic priorities',people:['Ibrahim Canliel, Chief Executive Officer']},
  {id:'network-distribution',start:'09:30',end:'10:00',title:'Network and Distribution',kind:'keynote',people:['Yerbolat Baisalykov, Senior Vice President Revenue Management and Commercial Planning']},
  {id:'brand',start:'10:00',end:'10:30',title:'Brand Awareness, Global Visibility',kind:'keynote',people:['Bella Tormysheva, Vice President Corporate Communications','Yuliya Tsoy, Director Marketing']},
  {id:'coffee-am',start:'10:30',end:'11:15',title:'Coffee break & Network time',kind:'break'},

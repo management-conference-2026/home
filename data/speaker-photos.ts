@@ -6,6 +6,7 @@ export const speakerPhotos: Partial<Record<string, SpeakerPhoto>> = {
   'Yerbolat Baisalykov': { src: '/images/speakers/neutral/yerbolat-baisalykov.webp', position: '50% 50%' },
   'Bella Tormysheva': { src: '/images/speakers/neutral/bella-tormysheva.webp', position: '50% 50%' },
   'Yuliya Tsoy': { src: '/images/speakers/neutral/yuliya-tsoy.webp', position: '50% 50%' },
+  'Sandra Cullen': { src: '/images/speakers/neutral/sandra-cullen.webp', position: '50% 50%' },
   'Johan Eidhagen': { src: '/images/speakers/neutral/johan-eidhagen.webp', position: '50% 50%' },
   'Yelena Obukhova': { src: '/images/speakers/neutral/yelena-obukhova.webp', position: '50% 50%' },
   'Alexandr Neboga': { src: '/images/speakers/neutral/alexandr-neboga.webp', position: '50% 50%' },

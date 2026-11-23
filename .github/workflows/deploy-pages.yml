@@ -19,7 +19,7 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url || steps.deployment_retry.outputs.page_url || steps.deployment_final.outputs.page_url }}
     runs-on: ubuntu-latest
     env:
       PAGES_ARTIFACT: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
@@ -63,6 +63,26 @@ jobs:
           exit 1
       - name: Deploy to GitHub Pages
         id: deployment
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: ${{ env.PAGES_ARTIFACT }}
+      - name: Allow artifact service to catch up
+        if: steps.deployment.outcome == 'failure'
+        run: sleep 10
+      - name: Retry Pages deployment
+        if: steps.deployment.outcome == 'failure'
+        id: deployment_retry
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: ${{ env.PAGES_ARTIFACT }}
+      - name: Wait before the final deployment attempt
+        if: steps.deployment_retry.outcome == 'failure'
+        run: sleep 20
+      - name: Complete Pages deployment
+        if: steps.deployment_retry.outcome == 'failure'
+        id: deployment_final
         uses: actions/deploy-pages@v4
         with:
           artifact_name: ${{ env.PAGES_ARTIFACT }}

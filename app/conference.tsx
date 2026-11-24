@@ -157,7 +157,6 @@ export default function Conference() {
       <section className="section agenda-section" id="agenda">
         <div className="section-heading agenda-heading"><div><h2>Agenda</h2><p>Thursday, 3 December 2026 / Almaty time (UTC+5)</p></div><span className="agenda-help"><Clock3 size={16}/>Select a time or speaker for details</span></div>
         <Agenda open={setModal}/>
-        <p className="agenda-note">The 14:00–14:20 quiz and 14:15–15:15 panel overlap in the supplied programme. Times are shown as provided.</p>
       </section>
       <section className="section questions-section" id="questions"><div><h2>Q&amp;A</h2><p>Questions for the conference speakers.</p></div>{siteConfig.questionsUrl ? <a className="primary-link" href={siteConfig.questionsUrl} target="_blank" rel="noreferrer">Open the question form<ArrowUpRight size={18}/></a> : <p className="pending-copy">The question form will be available here.</p>}</section>
       <section className="section vernissage-section" id="vernissage"><Sparkles size={28} strokeWidth={1.5} aria-hidden="true"/><div><h2>AI Vernissage</h2><p>{siteConfig.aiVernissageDescription || 'Details will be shared here ahead of the conference.'}</p></div></section>

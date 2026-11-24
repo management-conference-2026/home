@@ -26,5 +26,5 @@ The included workflow builds a Next.js static export and deploys it with GitHub 
 The repository name supplies the Pages base path automatically.
 
 Update confirmed links and forthcoming copy in `data/siteConfig.ts`.
-The 14:00 quiz and 14:15 panel overlap is retained from the supplied agenda.
+Kahoot runs from 14:00 to 14:15, followed immediately by Panel #2 from 14:15 to 15:15.
 Brand asset sources are recorded in `public/fonts/SOURCES.txt`.

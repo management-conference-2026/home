@@ -7,7 +7,7 @@ export const agenda: Session[] = [
  {id:'panel-cx',start:'11:15',end:'12:15',title:'#1 Panel discussion on Customer Experience',kind:'panel',people:['Moderator: Sandra Cullen, Vice President Training and Customer Experience','Johan Eidhagen, President and Chief Executive Officer, FlyArystan','Yelena Obukhova, Vice President Inflight Services','Alexandr Neboga, Vice President Ground Services','Serik Rys-Uly, Vice President Marketing and Sales']},
  {id:'qa-1',start:'12:15',end:'12:30',title:'Q&A',kind:'qa'},
  {id:'lunch',start:'12:30',end:'14:00',title:'Network Lunch and AI Vernissage',kind:'networking'},
- {id:'kahoot',start:'14:00',end:'14:20',title:'Kahoot quiz',kind:'interactive'},
+ {id:'kahoot',start:'14:00',end:'14:15',title:'Kahoot quiz',kind:'interactive'},
  {id:'panel-people',start:'14:15',end:'15:15',title:'#2 Panel discussion on People, Culture and Capabilities',kind:'panel',people:['Moderator: Yevgeniya Ni, Chief Human Resources Officer','Filippos Siakkas, Chief Operating Officer','Keith Wardle, Vice President Engineering and Maintenance','Piyush Taori, Chief Digital and Information Officer','Gerhard Coetzee, Chief Safety Compliance Officer']},
  {id:'qa-2',start:'15:15',end:'15:30',title:'Q&A',kind:'qa'},
  {id:'coffee-pm',start:'15:30',end:'16:00',title:'Coffee break',kind:'break'},

@@ -3,5 +3,5 @@ export const siteConfig = {
   brand: 'Air Astana Group', locale: 'Asia/Almaty', draft: true, subtitle: '',
   questionsUrl: 'https://www.research.net/r/WDGJFSM', kcAppUrl: 'https://kcapp.airastana.com/', onlineUrl: '',
   kcAppVideoUrl: './videos/kc-app-installation.mp4',
-  aiVernissageDescription: '', lunchDescription: '',
+  aiVernissageDescription: '', lunchDescription: 'Lunch will take place at the following locations:',
 };

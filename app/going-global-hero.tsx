@@ -35,6 +35,6 @@ export default function GoingGlobalHero() {
 
   return <section className="globe-hero" id="intro" aria-label="Going Global — XVIII Management Conference 2026">
     <h1 className="visually-hidden">Going Global: From Ambition to Execution</h1>
-    <iframe ref={frame} src={`${basePath}/going-global.html`} title="Going Global — Air Astana particle globe and flight routes" className="globe-hero-frame" tabIndex={-1} aria-hidden="true" onLoad={syncPlayback}/>
+    <iframe ref={frame} src={`${basePath}/going-global.html?v=20261125-2`} title="Going Global — Air Astana particle globe and flight routes" className="globe-hero-frame" tabIndex={-1} aria-hidden="true" onLoad={syncPlayback}/>
   </section>;
 }

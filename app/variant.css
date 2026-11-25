@@ -19,18 +19,17 @@ html { color-scheme: dark; }
 ::selection { background: var(--gold); color: var(--paper); }
 .site-navigation-shell { position: fixed; inset: 0 0 auto; background: var(--paper); opacity: 0; visibility: hidden; transform: translateY(-12px); pointer-events: none; transition: opacity .28s ease, transform .28s ease, visibility 0s linear .28s; }
 .site-navigation-shell.is-visible { opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto; transition-delay: 0s; }
-.conference-content { padding-top: var(--navigation-height); }
 .masthead-inner img { filter: brightness(0) invert(1); }
 .quick-navigation { border-bottom-color: var(--gold); }
 .quick-navigation a[aria-current], .quick-navigation button[aria-current] { color: var(--gold); }
-.conference-hero { background: var(--paper); border-bottom: 1px solid var(--rule); padding-block: 48px 36px; }
+.conference-hero { background: var(--paper); border-bottom: 1px solid var(--rule); padding-block: 0 36px; }
 .conference-hero h1 { color: #fff; font-weight: 500; }
 .globe-hero { position: relative; width: 100%; height: 100vh; height: 100svh; background: #02030a; overflow: hidden; }
 .globe-hero-frame { display: block; width: 100%; height: 100%; border: 0; }
 .globe-hero::after { content: ''; position: absolute; inset: auto 0 0; height: clamp(140px, 25svh, 300px); background: linear-gradient(to bottom, rgb(16 28 46 / 0), rgb(16 28 46 / 22%) 30%, rgb(16 28 46 / 74%) 70%, var(--paper)); pointer-events: none; }
 .navigation-panel { position: absolute; top: 100%; max-height: calc(100dvh - var(--navigation-height)); }
 @media (max-width: 899px) { html { scrollbar-gutter: auto; } }
-.hero-facts { padding-block: 24px; margin-top: 24px; border-top: 1px solid var(--rule); }
+.hero-facts { padding-block: 24px; margin-top: 0; border-top: 1px solid var(--rule); }
 .hero-countdown { margin-top: 0; }
 .hero-countdown .conference-status { min-width: 0; }
 .conference-status-label { font-size: 15px; color: var(--muted); }
@@ -133,7 +132,7 @@ h2 { color: #fff; font-weight: 700; }
   .current-session-time { padding-top: 0; font-size: 16px; }
   .current-session-link { align-items: start; }
   .current-session-link > svg { margin-top: 4px; }
-  .conference-hero { padding-block: 28px; }
+  .conference-hero { padding-block: 0 28px; }
   .hero-facts { padding-block: 20px; }
   .quote-section figure { padding-left: 16px; }
   .topics-section { padding-block: 32px; }

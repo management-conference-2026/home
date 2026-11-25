@@ -17,7 +17,7 @@
 }
 html { color-scheme: dark; }
 ::selection { background: var(--gold); color: var(--paper); }
-.site-navigation-shell { position: fixed; inset: 0 0 auto; background: var(--paper); opacity: 0; visibility: hidden; transform: translateY(-12px); pointer-events: none; transition: opacity .28s ease, transform .28s ease, visibility 0s linear .28s; }
+.site-navigation-shell { position: fixed; inset: 0 0 auto; background: rgb(16 28 46 / 72%); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); opacity: 0; visibility: hidden; transform: translateY(-12px); pointer-events: none; transition: opacity .28s ease, transform .28s ease, visibility 0s linear .28s; }
 .site-navigation-shell.is-visible { opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto; transition-delay: 0s; }
 .conference-content { padding-top: var(--navigation-height); }
 .masthead-inner img { filter: brightness(0) invert(1); }

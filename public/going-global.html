@@ -219,6 +219,23 @@ function fitText(txt,wt,targetW){var m=ink(txt,wt,100);return 100*targetW/m.w;}
 function drawStatic(){
   if(!fontReady)return;
   var k=KS,i;
+  /* Keep the portrait entrance readable while the planet fills the viewport. */
+  if(window.innerHeight>window.innerWidth*1.15){
+    var screenScale=Math.max(window.innerWidth/SW,window.innerHeight/SH),viewWidth=window.innerWidth/screenScale;
+    tt.setTransform(1,0,0,1,0,0);tt.clearRect(0,0,ttc.width,ttc.height);tt.setTransform(k,0,0,k,0,0);
+    tt.fillStyle='#ffffff';tt.textBaseline='alphabetic';tt.textAlign='center';
+    var headingSize=Math.min(120,fitText('GLOBAL',500,viewWidth*.86));
+    tt.font='500 '+headingSize+'px '+FONT;
+    tt.fillText('GOING',CX,220);tt.fillText('GLOBAL',CX,220+headingSize*1.05);
+    fg.setTransform(1,0,0,1,0,0);fg.clearRect(0,0,fgc.width,fgc.height);
+    var logoScale=Math.min(1,viewWidth*.38/320);
+    fg.save();fg.setTransform(k*KR*logoScale,0,0,k*KR*logoScale,k*CX*(1-logoScale),k*(70-60*logoScale));
+    LOGO.forEach(function(L){fg.fillStyle=L[0];fg.fill(L[3],L[1]);});fg.restore();
+    fg.setTransform(k,0,0,k,0,0);fg.textBaseline='alphabetic';fg.textAlign='center';fg.fillStyle='#ffffff';
+    fg.font='300 '+Math.min(30,fitText('From Ambition to Execution',300,viewWidth*.9))+'px '+FONT;
+    fg.fillText('From Ambition to Execution',CX,370);
+    tt.textAlign='start';fg.textAlign='start';return;
+  }
   /* ---- title: drawn on its own layer, the globe then covers its lower edge ---- */
   tt.setTransform(1,0,0,1,0,0);tt.clearRect(0,0,ttc.width,ttc.height);tt.setTransform(k,0,0,k,0,0);
   var TW=500, tsz=fitText('GOING GLOBAL',TW,1045.5), m=ink('GOING GLOBAL',TW,tsz);
@@ -229,6 +246,8 @@ function drawStatic(){
   fg.setTransform(1,0,0,1,0,0);fg.clearRect(0,0,fgc.width,fgc.height);fg.setTransform(k,0,0,k,0,0);
   fg.imageSmoothingQuality='high';
   fg.save();fg.setTransform(k*KR,0,0,k*KR,0,0);LOGO.forEach(function(L){fg.fillStyle=L[0];fg.fill(L[3],L[1]);});fg.restore();
+  var taglineScale=Math.min(1,(window.innerWidth/Math.max(window.innerWidth/SW,window.innerHeight/SH))*.9/1582);
+  fg.save();fg.translate(CX,565.6);fg.scale(taglineScale,taglineScale);fg.translate(-CX,-565.6);
   var SWT=300, ssz=fitText('From Ambition',SWT,308.9), BASE=565.6;
   fg.textBaseline='alphabetic';fg.fillStyle='#ffffff';fg.font=SWT+' '+ssz+'px '+FONT;
   var m1=ink('From Ambition',SWT,ssz);fg.fillText('From Ambition',169.2+m1.l,BASE);
@@ -236,10 +255,11 @@ function drawStatic(){
   var m3=ink('Execution',SWT,ssz);fg.fillText('Execution',1750.9-m3.r,BASE);
   fg.fillStyle='rgba(255,255,255,.92)';
   fg.fillRect(514.4,552,388.2,2.1);fg.fillRect(1017.4,552,489.7,2.1);
+  fg.restore();
 }
 function sizeAll(){
-  var w=window.innerWidth,h=window.innerHeight,s=Math.min(w/SW,h/1000),dpr=Math.min(window.devicePixelRatio||1,3);
-  stage.style.transform='translate('+((w-SW*s)/2)+'px,'+Math.max(0,(h-SH*s)/2)+'px) scale('+s+')';
+  var w=window.innerWidth,h=window.innerHeight,s=Math.max(w/SW,h/SH),dpr=Math.min(window.devicePixelRatio||1,3);
+  stage.style.transform='translate('+((w-SW*s)/2)+'px,0) scale('+s+')';
   /* maximum quality: the canvases follow the real pixels of the screen (up to QCAP x the 1920 design width) */
   KS=qs.has('w')?parseFloat(qs.get('w'))/SW:Math.min(s*dpr,QCAP)*QF;
   var maxd=8192;try{if(GLOK)maxd=Math.min(gl.getParameter(gl.MAX_VIEWPORT_DIMS)[0],gl.getParameter(gl.MAX_RENDERBUFFER_SIZE));}catch(e){}
@@ -836,7 +856,7 @@ function renderFX(t,V,ph){
    Pointer: the particles around the cursor scatter and then glide back
    ===================================================================== */
 var MU=new Float32Array(64),MN=0,MS={x:0,y:0,tx:0,ty:0,ls:0,on:false,last:0,tr:[],lx:-1e4,ly:-1e4,lt:0};
-function toStage(cx,cy){var w=window.innerWidth,h=window.innerHeight,s=Math.min(w/SW,h/1000);return [(cx-(w-SW*s)/2)/s,(cy-Math.max(0,(h-SH*s)/2))/s];}
+function toStage(cx,cy){var w=window.innerWidth,h=window.innerHeight,s=Math.max(w/SW,h/SH);return [(cx-(w-SW*s)/2)/s,cy/s];}
 /* a touch swells in slowly (ease-in), reaches its peak, then relaxes: the particles lift off softly and settle back */
 function envl(a,ta,td){if(a<=0)return 0;if(a<ta){var x=a/ta;return x*x*(3-2*x);}return Math.exp(-(a-ta)/td);}
 function addImpulse(x,y,k,r,now,burst){var tr=MS.tr;tr.push({x:x,y:y,t:now,k:k,r:r,b:!!burst});if(tr.length>16)tr.shift();}

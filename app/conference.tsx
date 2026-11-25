@@ -70,7 +70,9 @@ export default function Conference() {
     let frame = 0;
     const updateActive = () => {
       frame = 0;
-      const activationLine = (navigationShell.current?.getBoundingClientRect().bottom ?? 0) + 16;
+      const navigationBottom = navigationShell.current?.getBoundingClientRect().bottom ?? 0;
+      document.documentElement.style.setProperty('--navigation-bottom', `${navigationBottom}px`);
+      const activationLine = navigationBottom + 16;
       let current = sections[0]?.id ?? 'top';
       for (const section of sections) {
         if (section.getBoundingClientRect().top > activationLine) break;
@@ -132,6 +134,7 @@ export default function Conference() {
 
   return <div className="conference-shell">
     <a className="skip-link" href="#agenda">Skip to agenda</a>
+    <GoingGlobalHero/>
     <div className="site-navigation-shell" ref={navigationShell}>
       <header className="site-masthead"><div className="masthead-inner"><button type="button" className="menu-toggle" onClick={e => toggleMenu(e.currentTarget)} aria-controls="conference-navigation" aria-expanded={menu} aria-label={menu ? 'Close navigation' : 'Open navigation'}>{menu ? <X size={22}/> : <Menu size={22}/>}<span>{menu ? 'Close' : 'Menu'}</span></button><a href="#top" onClick={() => navigateTo('top')} aria-label="Air Astana Group home"><Image src={asset('/air-astana-group.png')} alt="Air Astana Group" width={205} height={31} priority/></a><p className="masthead-conference">XVIII Management Conference<span>3 December 2026 / Almaty</span></p></div></header>
       <nav className="quick-navigation" aria-label="Main conference sections"><div>{navigation.filter(([, id]) => ['top', 'agenda', 'questions'].includes(id)).map(([label, id]) => <a key={id} href={`#${id}`} aria-current={quickActive === id ? 'location' : undefined} onClick={() => navigateTo(id)}>{label}</a>)}<button type="button" aria-current={['vernissage', 'information', 'venue'].includes(active) ? 'location' : undefined} aria-expanded={menu} aria-controls="conference-navigation" onClick={e => toggleMenu(e.currentTarget)}>All sections<ChevronDown size={16} aria-hidden="true"/></button></div></nav>
@@ -144,8 +147,8 @@ export default function Conference() {
     </div>
     {menu && <button type="button" className="navigation-scrim" aria-label="Close navigation" onClick={() => { setMenu(false); menuOpener.current?.focus({ preventScroll: true }); }}/>}
     <main className="conference-content">
-      <section className="conference-hero section has-globe" id="top">
-        <p className="visually-hidden">{event.name}</p><GoingGlobalHero/>
+      <section className="conference-hero section" id="top">
+        <p className="visually-hidden">{event.name}</p>
         <div className="hero-facts">
           <div><CalendarDays size={20}/><p><span>Date</span><strong>{event.dateLabel}</strong></p></div>
           <div><Radio size={20}/><p><span>Format</span><strong>{event.format}</strong></p></div>

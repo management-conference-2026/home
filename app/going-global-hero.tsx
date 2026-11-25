@@ -33,8 +33,8 @@ export default function GoingGlobalHero() {
     frame.current?.contentWindow?.postMessage({ type: 'conference-globe-state', paused, visible }, window.location.origin);
   }, [paused, visible]);
 
-  return <div className="globe-hero">
+  return <section className="globe-hero" id="intro" aria-label="Going Global — XVIII Management Conference 2026">
     <h1 className="visually-hidden">Going Global: From Ambition to Execution</h1>
     <iframe ref={frame} src={`${basePath}/going-global.html`} title="Going Global — Air Astana particle globe and flight routes" className="globe-hero-frame" tabIndex={-1} aria-hidden="true" onLoad={syncPlayback}/>
-  </div>;
+  </section>;
 }

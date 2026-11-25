@@ -8,6 +8,7 @@ import { event } from '../data/event';
 import { siteConfig } from '../data/siteConfig';
 import { speakerPhotos } from '../data/speaker-photos';
 import { getConferenceStatus, getLiveSessionIds } from '../data/schedule';
+import GoingGlobalHero from './going-global-hero';
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 const asset = (path: string) => `${basePath}${path}`;
@@ -143,8 +144,8 @@ export default function Conference() {
     </div>
     {menu && <button type="button" className="navigation-scrim" aria-label="Close navigation" onClick={() => { setMenu(false); menuOpener.current?.focus({ preventScroll: true }); }}/>}
     <main className="conference-content">
-      <section className="conference-hero section" id="top">
-        <p className="conference-name">{event.name}</p><h1>Going Global:<br/>From Ambition to Execution</h1>
+      <section className="conference-hero section has-globe" id="top">
+        <p className="visually-hidden">{event.name}</p><GoingGlobalHero/>
         <div className="hero-facts">
           <div><CalendarDays size={20}/><p><span>Date</span><strong>{event.dateLabel}</strong></p></div>
           <div><Radio size={20}/><p><span>Format</span><strong>{event.format}</strong></p></div>

@@ -204,7 +204,7 @@ function landCov0(lat,lon){
    ===================================================================== */
 var stage=$('stage'), glc=$('gl'), ttc=$('ttl'), fxc=$('fx'), fgc=$('fg');
 var fx=fxc.getContext('2d'), tt=ttc.getContext('2d'), fg=fgc.getContext('2d');
-var gl=null, GLOK=false, g2=null, KS=1, UPX=1;
+var gl=null, GLOK=false, g2=null, KS=1, UPX=1, PLANET_OFFSET=0;
 /* XVIII Management Conference logo: vector paths taken from the reference PDF (page units 1915.62 x 1097.14) */
 var KR=1920/1915.62;
 var LOGO=[["#9b854f","evenodd","M 948.50 123.60 C 949.73 122.13 950.44 120.21 950.44 118.13 C 950.44 116.19 949.79 114.40 948.70 112.97 C 947.66 111.59 946.02 110.69 944.17 110.69 C 941.53 110.69 939.32 112.51 938.67 114.98 C 938.58 115.32 938.51 115.67 938.50 116.01 C 938.5 116.08 938.5 116.15 938.49 116.21 C 938.49 116.24 938.49 116.27 938.49 116.30 C 938.49 116.30 938.49 116.31 938.49 116.32 C 938.49 116.32 938.49 116.32 938.49 116.32 C 938.49 117.35 939.32 118.19 940.33 118.19 C 941.17 118.19 941.89 117.62 942.11 116.84 C 942.11 116.83 942.11 116.83 942.11 116.83 C 942.15 116.68 942.17 116.53 942.18 116.36 C 942.20 116.01 942.17 115.64 942.27 115.28 C 942.35 114.99 942.59 114.62 942.88 114.43 C 943.14 114.25 943.45 114.11 943.80 114.11 C 946.38 114.11 947.47 119.10 944.42 121.56 C 943.47 122.33 942.19 123.04 940.34 123.04 C 936.61 123.04 933.68 120.05 933.68 116.36 C 933.68 115.21 933.97 114.09 934.51 113.12 C 934.71 112.75 935.22 112.07 935.22 112.07 C 931.98 112.57 929.34 112.88 927.01 111.45 C 926.17 110.94 925.35 110.22 924.58 109.12 C 925.35 108.02 926.17 107.30 927.01 106.78 C 929.34 105.36 931.98 105.67 935.22 106.16 C 935.22 106.16 934.71 105.49 934.51 105.11 C 933.97 104.15 933.68 103.03 933.68 101.88 C 933.68 98.18 936.61 95.20 940.34 95.20 C 942.19 95.20 943.47 95.91 944.42 96.67 C 947.47 99.14 946.38 104.13 943.80 104.13 C 943.45 104.13 943.14 103.99 942.88 103.81 C 942.59 103.62 942.35 103.25 942.27 102.95 C 942.17 102.60 942.20 102.23 942.18 101.87 C 942.17 101.71 942.15 101.55 942.11 101.40 C 942.11 101.40 942.11 101.40 942.11 101.40 C 941.89 100.62 941.17 100.05 940.33 100.05 C 939.32 100.05 938.49 100.88 938.49 101.91 C 938.49 101.91 938.49 101.92 938.49 101.92 C 938.49 101.92 938.49 101.93 938.49 101.94 C 938.49 101.97 938.49 102 938.49 102.02 C 938.5 102.09 938.5 102.16 938.50 102.22 C 938.51 102.56 938.58 102.92 938.67 103.26 C 939.32 105.73 941.53 107.55 944.17 107.55 C 946.02 107.55 947.66 106.65 948.70 105.26 C 949.79 103.83 950.44 102.05 950.44 100.10 C 950.44 98.03 949.73 96.10 948.50 94.63 C 947.54 93.48 946.26 92.59 944.81 92.10 L 944.84 92.08 C 948.13 89.69 950.27 85.79 950.27 81.38 C 950.27 81.05 950.26 80.73 950.23 80.41 L 950.22 80.41 L 904.33 109.12 L 950.22 137.83 L 950.23 137.83 C 950.26 137.51 950.27 137.18 950.27 136.85 C 950.27 132.44 948.13 128.54 944.84 126.15 L 944.81 126.14 C 946.26 125.65 947.54 124.76 948.50 123.60"],["#ffffff","evenodd","M 950.44 74.29 L 923.18 74.29 L 881.13 100.60 L 839.08 74.29 L 811.82 74.29 L 867.51 109.12 L 811.82 143.95 L 839.07 143.95 L 881.13 117.64 L 923.20 143.95 L 950.44 143.95 L 894.76 109.12 Z M 950.44 74.29"],["#ffffff","evenodd","M 1029.46 74.29 L 1000.17 117.99 L 970.89 74.29 L 953.5 74.29 L 1000.17 143.95 L 1046.85 74.29 Z M 1029.46 74.29"],["#ffffff","evenodd","M 1064.35 143.95 L 1049.91 143.95 L 1049.91 74.29 L 1064.35 74.29 Z M 1064.35 143.95"],["#ffffff","evenodd","M 1083.88 143.95 L 1069.43 143.95 L 1069.43 74.29 L 1083.88 74.29 Z M 1083.88 143.95"],["#ffffff","evenodd","M 1103.41 143.95 L 1088.96 143.95 L 1088.96 74.29 L 1103.41 74.29 Z M 1103.41 143.95"],["#ffffff","evenodd","M 821.30 169.66 L 816.55 161.76 L 814.30 161.76 L 814.30 176.70 L 816.29 176.70 L 816.29 165.05 L 821.17 173.16 L 821.43 173.16 L 826.32 165.03 L 826.32 176.70 L 828.28 176.70 L 828.28 161.76 L 826.04 161.76 Z M 821.30 169.66"],["#ffffff","evenodd","M 834.52 171.49 L 837.19 164.13 L 839.88 171.49 Z M 836.08 161.76 L 830.51 176.70 L 832.62 176.70 L 833.84 173.35 L 840.56 173.35 L 841.78 176.70 L 843.89 176.70 L 838.32 161.76 Z M 836.08 161.76"],["#ffffff","evenodd","M 855.39 172.90 L 847.71 161.76 L 846.10 161.76 L 846.10 176.70 L 848.09 176.70 L 848.09 165.54 L 855.77 176.70 L 857.37 176.70 L 857.37 161.76 L 855.39 161.76 Z M 855.39 172.90"],["#ffffff","evenodd","M 863.60 171.49 L 866.27 164.13 L 868.96 171.49 Z M 865.16 161.76 L 859.59 176.70 L 861.70 176.70 L 862.92 173.35 L 869.64 173.35 L 870.86 176.70 L 872.97 176.70 L 867.40 161.76 Z M 865.16 161.76"],["#ffffff","evenodd","M 881.53 171.08 L 887.01 171.08 C 886.63 173.33 884.80 175.03 881.70 175.03 C 878.14 175.03 875.77 172.47 875.77 169.23 C 875.77 165.97 878.16 163.41 881.62 163.41 C 883.73 163.41 885.54 164.5 886.39 166.09 L 888.10 165.09 C 886.87 162.96 884.43 161.48 881.64 161.48 C 877.09 161.48 873.81 164.94 873.81 169.23 C 873.81 173.50 877.07 176.95 881.68 176.95 C 886.18 176.95 889.00 173.99 889.00 170.19 L 889.00 169.29 L 881.53 169.29 Z M 881.53 171.08"],["#ffffff","evenodd","M 893.91 170.08 L 900.21 170.08 L 900.21 168.23 L 893.91 168.23 L 893.91 163.64 L 900.74 163.64 L 900.74 161.76 L 891.93 161.76 L 891.93 176.70 L 900.85 176.70 L 900.85 174.82 L 893.91 174.82 Z M 893.91 170.08"],["#ffffff","evenodd","M 910.70 169.66 L 905.94 161.76 L 903.70 161.76 L 903.70 176.70 L 905.68 176.70 L 905.68 165.05 L 910.57 173.16 L 910.82 173.16 L 915.71 165.03 L 915.71 176.70 L 917.67 176.70 L 917.67 161.76 L 915.43 161.76 Z M 910.70 169.66"],["#ffffff","evenodd","M 923.50 170.08 L 929.80 170.08 L 929.80 168.23 L 923.50 168.23 L 923.50 163.64 L 930.33 163.64 L 930.33 161.76 L 921.52 161.76 L 921.52 176.70 L 930.44 176.70 L 930.44 174.82 L 923.50 174.82 Z M 923.50 170.08"],["#ffffff","evenodd","M 942.57 172.90 L 934.88 161.76 L 933.28 161.76 L 933.28 176.70 L 935.27 176.70 L 935.27 165.54 L 942.95 176.70 L 944.55 176.70 L 944.55 161.76 L 942.57 161.76 Z M 942.57 172.90"],["#ffffff","evenodd","M 946.87 163.64 L 951.27 163.64 L 951.27 176.70 L 953.23 176.70 L 953.23 163.64 L 957.65 163.64 L 957.65 161.76 L 946.87 161.76 Z M 946.87 163.64"],["#ffffff","evenodd","M 973.05 163.41 C 975.09 163.41 976.91 164.47 977.76 166.11 L 979.49 165.11 C 978.23 162.91 975.80 161.48 973.05 161.48 C 968.48 161.48 965.23 164.92 965.23 169.23 C 965.23 173.52 968.48 176.95 973.05 176.95 C 975.82 176.95 978.25 175.53 979.49 173.33 L 977.76 172.35 C 976.91 173.97 975.09 175.03 973.05 175.03 C 969.55 175.03 967.20 172.5 967.20 169.23 C 967.20 165.94 969.55 163.41 973.05 163.41"],["#ffffff","evenodd","M 988.89 175.03 C 985.63 175.03 983.13 172.5 983.13 169.23 C 983.13 165.94 985.63 163.41 988.89 163.41 C 992.16 163.41 994.65 165.94 994.65 169.23 C 994.65 172.5 992.16 175.03 988.89 175.03 M 988.89 161.48 C 984.56 161.48 981.17 164.92 981.17 169.23 C 981.17 173.52 984.56 176.95 988.89 176.95 C 993.22 176.95 996.64 173.52 996.64 169.23 C 996.64 164.92 993.22 161.48 988.89 161.48"],["#ffffff","evenodd","M 1008.88 172.90 L 1001.20 161.76 L 999.60 161.76 L 999.60 176.70 L 1001.58 176.70 L 1001.58 165.54 L 1009.27 176.70 L 1010.87 176.70 L 1010.87 161.76 L 1008.88 161.76 Z M 1008.88 172.90"],["#ffffff","evenodd","M 1014.70 176.70 L 1016.69 176.70 L 1016.69 170.36 L 1023.02 170.36 L 1023.02 168.48 L 1016.69 168.48 L 1016.69 163.64 L 1023.30 163.64 L 1023.30 161.76 L 1014.70 161.76 Z M 1014.70 176.70"],["#ffffff","evenodd","M 1027.93 170.08 L 1034.22 170.08 L 1034.22 168.23 L 1027.93 168.23 L 1027.93 163.64 L 1034.76 163.64 L 1034.76 161.76 L 1025.94 161.76 L 1025.94 176.70 L 1034.86 176.70 L 1034.86 174.82 L 1027.93 174.82 Z M 1027.93 170.08"],["#ffffff","evenodd","M 1039.69 169.19 L 1039.69 163.62 L 1043.69 163.62 C 1045.16 163.62 1046.35 164.85 1046.35 166.39 C 1046.35 167.93 1045.16 169.19 1043.69 169.19 Z M 1048.33 166.39 C 1048.33 163.83 1046.25 161.76 1043.69 161.76 L 1037.71 161.76 L 1037.71 176.70 L 1039.69 176.70 L 1039.69 170.98 L 1043.22 170.98 L 1046.57 176.70 L 1048.76 176.70 L 1045.25 170.72 C 1047.03 170.08 1048.33 168.35 1048.33 166.39"],["#ffffff","evenodd","M 1053.41 170.08 L 1059.70 170.08 L 1059.70 168.23 L 1053.41 168.23 L 1053.41 163.64 L 1060.23 163.64 L 1060.23 161.76 L 1051.42 161.76 L 1051.42 176.70 L 1060.34 176.70 L 1060.34 174.82 L 1053.41 174.82 Z M 1053.41 170.08"],["#ffffff","evenodd","M 1072.47 172.90 L 1064.79 161.76 L 1063.19 161.76 L 1063.19 176.70 L 1065.17 176.70 L 1065.17 165.54 L 1072.85 176.70 L 1074.46 176.70 L 1074.46 161.76 L 1072.47 161.76 Z M 1072.47 172.90"],["#ffffff","evenodd","M 1085.28 163.41 C 1087.32 163.41 1089.14 164.47 1089.99 166.11 L 1091.72 165.11 C 1090.46 162.91 1088.03 161.48 1085.28 161.48 C 1080.71 161.48 1077.47 164.92 1077.47 169.23 C 1077.47 173.52 1080.71 176.95 1085.28 176.95 C 1088.05 176.95 1090.48 175.53 1091.72 173.33 L 1089.99 172.35 C 1089.14 173.97 1087.32 175.03 1085.28 175.03 C 1081.78 175.03 1079.43 172.5 1079.43 169.23 C 1079.43 165.94 1081.78 163.41 1085.28 163.41"],["#ffffff","evenodd","M 1096.47 174.82 L 1096.47 170.08 L 1102.76 170.08 L 1102.76 168.23 L 1096.47 168.23 L 1096.47 163.64 L 1103.30 163.64 L 1103.30 161.76 L 1094.49 161.76 L 1094.49 176.70 L 1103.41 176.70 L 1103.41 174.82 Z M 1096.47 174.82"]];
@@ -214,26 +214,35 @@ LOGO.forEach(function(L){L[3]=new Path2D(L[2]);});
    Static layers: title (hidden behind the globe), logos, sub-line
    ===================================================================== */
 var fontReady=false;
-function ink(txt,wt,size){fg.font=wt+' '+size+'px '+FONT;var m=fg.measureText(txt);return {l:m.actualBoundingBoxLeft,r:m.actualBoundingBoxRight,w:m.actualBoundingBoxLeft+m.actualBoundingBoxRight,adv:m.width};}
+function ink(txt,wt,size){fg.font=wt+' '+size+'px '+FONT;var m=fg.measureText(txt);return {l:m.actualBoundingBoxLeft,r:m.actualBoundingBoxRight,w:m.actualBoundingBoxLeft+m.actualBoundingBoxRight,adv:m.width,ascent:m.actualBoundingBoxAscent,descent:m.actualBoundingBoxDescent};}
 function fitText(txt,wt,targetW){var m=ink(txt,wt,100);return 100*targetW/m.w;}
 function drawStatic(){
   if(!fontReady)return;
   var k=KS,i;
+  PLANET_OFFSET=0;CY=1083.5;
   /* Keep the portrait entrance readable while the planet fills the viewport. */
   if(window.innerHeight>window.innerWidth*1.15){
     var screenScale=Math.max(window.innerWidth/SW,window.innerHeight/SH),viewWidth=window.innerWidth/screenScale;
     tt.setTransform(1,0,0,1,0,0);tt.clearRect(0,0,ttc.width,ttc.height);tt.setTransform(k,0,0,k,0,0);
     tt.fillStyle='#ffffff';tt.textBaseline='alphabetic';tt.textAlign='center';
-    var headingSize=Math.min(120,fitText('GLOBAL',500,viewWidth*.86));
+    var headingSize=Math.min(116,fitText('GLOBAL',500,viewWidth*.84));
+    var logoScale=Math.min(.8,viewWidth*.34/(291.59*KR)),logoTop=64;
+    var logoBottom=logoTop+102.66*KR*logoScale;
+    var goingMetrics=ink('GOING',500,headingSize),globalMetrics=ink('GLOBAL',500,headingSize);
+    var goingBase=logoBottom+28+goingMetrics.ascent;
+    var globalBase=goingBase+goingMetrics.descent+20+globalMetrics.ascent;
+    var subSize=Math.min(30,fitText('From Ambition to Execution',300,viewWidth*.9));
+    var subMetrics=ink('From Ambition to Execution',300,subSize);
+    var subBase=globalBase+globalMetrics.descent+28+subMetrics.ascent;
+    PLANET_OFFSET=Math.max(60,subBase+subMetrics.descent+56-(1083.5-R));CY=1083.5+PLANET_OFFSET;
     tt.font='500 '+headingSize+'px '+FONT;
-    tt.fillText('GOING',CX,220);tt.fillText('GLOBAL',CX,220+headingSize*1.05);
+    tt.fillText('GOING',CX,goingBase);tt.fillText('GLOBAL',CX,globalBase);
     fg.setTransform(1,0,0,1,0,0);fg.clearRect(0,0,fgc.width,fgc.height);
-    var logoScale=Math.min(1,viewWidth*.38/320);
-    fg.save();fg.setTransform(k*KR*logoScale,0,0,k*KR*logoScale,k*CX*(1-logoScale),k*(70-60*logoScale));
+    fg.save();fg.setTransform(k*KR*logoScale,0,0,k*KR*logoScale,k*CX*(1-logoScale),k*(logoTop-74.29*KR*logoScale));
     LOGO.forEach(function(L){fg.fillStyle=L[0];fg.fill(L[3],L[1]);});fg.restore();
     fg.setTransform(k,0,0,k,0,0);fg.textBaseline='alphabetic';fg.textAlign='center';fg.fillStyle='#ffffff';
-    fg.font='300 '+Math.min(30,fitText('From Ambition to Execution',300,viewWidth*.9))+'px '+FONT;
-    fg.fillText('From Ambition to Execution',CX,370);
+    fg.font='300 '+subSize+'px '+FONT;
+    fg.fillText('From Ambition to Execution',CX,subBase);
     tt.textAlign='start';fg.textAlign='start';return;
   }
   /* ---- title: drawn on its own layer, the globe then covers its lower edge ---- */
@@ -385,7 +394,7 @@ var FS_STAR=[
 ].join('\n');
 var VS_PART=[
 'attribute vec3 aP;attribute vec4 aA;attribute vec4 aJ;',
-'uniform vec4 uV;uniform float uPx,uPh,uMax,uBN,uMN;uniform vec4 uRip[8];uniform vec4 uRipB[8];uniform vec4 uM[16];',
+'uniform vec4 uV;uniform float uPx,uPh,uMax,uBN,uMN,uOffset;uniform vec4 uRip[8];uniform vec4 uRipB[8];uniform vec4 uM[16];',
 'varying vec3 vCol;varying float vCore;',
 'void main(){',
 /* quick cull with the resting position */
@@ -420,7 +429,7 @@ var VS_PART=[
 ' p+=dsp*.011*aA.w*(ca*t1+sa*t2)*(.6+.4*sin(wb+aJ.w));',
 ' float xr=p.x*uV.x+p.y*uV.y,yr=-p.x*uV.y+p.y*uV.x;',
 ' float Z=uV.w*p.z+uV.z*xr,Y=uV.z*p.z-uV.w*xr,X=yr;',
-' vec2 sp=vec2(960.+676.*X,1083.5-676.*Y);',
+' vec2 sp=vec2(960.+676.*X,1083.5+uOffset-676.*Y);',
 ' if(Z<.03||sp.y>@SHB@||sp.y<388.5){gl_Position=vec4(3.,3.,3.,1.);gl_PointSize=0.;vCol=vec3(0.);vCore=0.;return;}',
 /* pointer: particles around the cursor fly apart, then glide back (decaying trail of impulses) */
 ' float mpush=0.;',
@@ -585,7 +594,7 @@ function initGLData(){
   P.uBn={ph:u(P.bgn,'uPh'),sz:u(P.bgn,'uSz')};
   P.uBc={sz:u(P.bgc,'uSz'),tex:u(P.bgc,'uTex')};
   P.uSt={px:u(P.star,'uPx'),ph:u(P.star,'uPh'),mx:u(P.star,'uMax')};
-  P.uPa={v:u(P.part,'uV'),px:u(P.part,'uPx'),ph:u(P.part,'uPh'),mx:u(P.part,'uMax'),bn:u(P.part,'uBN'),rip:u(P.part,'uRip'),ripB:u(P.part,'uRipB'),m:u(P.part,'uM'),mn:u(P.part,'uMN')};
+  P.uPa={v:u(P.part,'uV'),px:u(P.part,'uPx'),ph:u(P.part,'uPh'),mx:u(P.part,'uMax'),bn:u(P.part,'uBN'),rip:u(P.part,'uRip'),ripB:u(P.part,'uRipB'),m:u(P.part,'uM'),mn:u(P.part,'uMN'),offset:u(P.part,'uOffset')};
   P.uDi={px:u(P.disc,'uPx'),h:u(P.disc,'uH'),ph:u(P.disc,'uPh'),mode:u(P.disc,'uMode')};
 }
 var enabledAttrs=[];
@@ -635,11 +644,12 @@ function renderGL(t,V,ph){
   att(P.part,'aP',3,11,0);att(P.part,'aA',4,11,3);att(P.part,'aJ',4,11,7);
   gl.uniform4f(P.uPa.v,V.cl,V.sl,V.cp,V.sp);gl.uniform1f(P.uPa.px,UPX);gl.uniform1f(P.uPa.ph,ph);gl.uniform1f(P.uPa.mx,MAXPT);gl.uniform1f(P.uPa.bn,Math.round(LOOP/6));
   gl.uniform4fv(P.uPa.rip,RIPA);gl.uniform4fv(P.uPa.ripB,RIPB);gl.uniform4fv(P.uPa.m,MU);gl.uniform1f(P.uPa.mn,MN);
+  gl.uniform1f(P.uPa.offset,PLANET_OFFSET);
   gl.drawArrays(gl.POINTS,0,NP);
   /* rim light + atmosphere */
   gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);
   useTri(P.disc);
-  gl.uniform1f(P.uDi.px,UPX);gl.uniform1f(P.uDi.h,H);gl.uniform1f(P.uDi.ph,ph);gl.uniform1f(P.uDi.mode,1);gl.drawArrays(gl.TRIANGLES,0,3);
+  gl.uniform1f(P.uDi.px,UPX);gl.uniform1f(P.uDi.h,H-PLANET_OFFSET*UPX);gl.uniform1f(P.uDi.ph,ph);gl.uniform1f(P.uDi.mode,1);gl.drawArrays(gl.TRIANGLES,0,3);
 }
 
 /* ---------- fallback when WebGL is not available (2D canvas) ---------- */
